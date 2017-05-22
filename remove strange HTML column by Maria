@@ -1,5 +1,0 @@
-cleandata <- read.csv("/Users/mariamardina/data/clean_data.csv")
-cleandata
-names(cleandata)
-cleandata$Strange.HTML <- NULL #to delete the column
-cleandata #clean data with out the Strange HTML column
