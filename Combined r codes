@@ -1,11 +1,21 @@
-# Part D - Maria
-cleandata <- read.csv("/Users/mariamardina/data/clean_data.csv")
-cleandata
-names(cleandata)
-cleandata$Strange.HTML <- NULL #to delete the column
-cleandata #clean data with out the Strange HTML column
-write.csv(cleandata,"/Users/mariamardina/data/clean_data2.csv")
+# Parts A and C - Ezgi
+setwd("/Users/ezgikaraaslan/Documents/Harrisburg/MyRWork")
 
+# Below code downloads file from Github, loads to my R, and then fills the missing Area names
+URL<- "https://github.com/mariamardina/Data-Cleanup-510-90-team-1/raw/master/clean_data2.csv"
+download.file(URL, destfile="github.csv")
+GithubData <- read.csv("github.csv",stringsAsFactors=FALSE)
+GithubData <- subset(GithubData, select = -X )
+library(zoo)
+GithubData$Area[which(GithubData$Area == "")] <- NA
+GithubData$Area<-na.locf(GithubData$Area)
+
+# Below code deletes the values in Street 2 if it repeats in Street
+GithubData$new[GithubData$Street.2==GithubData$Street] <- "Yes"
+GithubData$Street.2[GithubData$new=="Yes"]<-""
+GithubData <- subset(GithubData, select = -new )
+
+write.csv(GithubData, file="GithubData.csv",row.names=F)
 
 # Part B - Yiran
 dc<-read.csv(file="C:/Users/zy/Data-Cleanup-510-90-team-1/dirty_data.csv", header=TRUE, sep=",",stringsAsFactors=FALSE,strip.white=TRUE)
@@ -42,21 +52,11 @@ dc$Street.2<-gsub("Village", "Vlg",dc$Street.2)
 dc
 write.csv(dc,"C:/Users/zy/Data-Cleanup-510-90-team-1/clean_data_b.csv",row.names=F)
 
-# Parts A and C - Ezgi
-setwd("/Users/ezgikaraaslan/Documents/Harrisburg/MyRWork")
 
-# Below code downloads file from Github, loads to my R, and then fills the missing Area names
-URL<- "https://github.com/mariamardina/Data-Cleanup-510-90-team-1/raw/master/clean_data2.csv"
-download.file(URL, destfile="github.csv")
-GithubData <- read.csv("github.csv",stringsAsFactors=FALSE)
-GithubData <- subset(GithubData, select = -X )
-library(zoo)
-GithubData$Area[which(GithubData$Area == "")] <- NA
-GithubData$Area<-na.locf(GithubData$Area)
-
-# Below code deletes the values in Street 2 if it repeats in Street
-GithubData$new[GithubData$Street.2==GithubData$Street] <- "Yes"
-GithubData$Street.2[GithubData$new=="Yes"]<-""
-GithubData <- subset(GithubData, select = -new )
-
-write.csv(GithubData, file="GithubData.csv",row.names=F)
+# Part D - Maria
+cleandata <- read.csv("/Users/mariamardina/data/clean_data.csv")
+cleandata
+names(cleandata)
+cleandata$Strange.HTML <- NULL #to delete the column
+cleandata #clean data with out the Strange HTML column
+write.csv(cleandata,"/Users/mariamardina/data/clean_data2.csv")
