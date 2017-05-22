@@ -1,3 +1,4 @@
+# Part D - Maria
 cleandata <- read.csv("/Users/mariamardina/data/clean_data.csv")
 cleandata
 names(cleandata)
@@ -5,7 +6,10 @@ cleandata$Strange.HTML <- NULL #to delete the column
 cleandata #clean data with out the Strange HTML column
 
 
-# Parts A and C
+# Part B - Yiran
+
+
+# Parts A and C - Ezgi
 setwd("/Users/ezgikaraaslan/Documents/Harrisburg/MyRWork")
 
 # Below code downloads file from Github, loads to my R, and then fills the missing Area names
